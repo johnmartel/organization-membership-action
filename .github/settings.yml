@@ -1,7 +1,6 @@
 _extends: .github:_opensource.yaml
 
 repository:
-  name: open-source-template
-  description: A baisc template for creating new repositories
-  topics: github, configuration, templates
-  is_template: true
+  name: organization-membership-action
+  description: Manage your Github organization/teams membership with pull requests!
+  topics: github, actions, management
