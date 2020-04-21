@@ -4,3 +4,18 @@ repository:
   name: organization-membership-action
   description: Manage your Github organization/teams membership with pull requests!
   topics: github, actions, management
+
+branches:
+  - name: master
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions: {}
+      required_status_checks:
+        strict: true
+        contexts: ['Check']
+      required_signatures: true
+      enforce_admins: true
+      restrictions: null

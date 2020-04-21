@@ -1,0 +1,22 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  NODE_VERSION: 12.13.0
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
