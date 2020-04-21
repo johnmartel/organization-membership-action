@@ -2,8 +2,9 @@
   "name": "organization-membership-action",
   "version": "1.0.0",
   "description": "A GitHub action to manage organizations and teams as code",
-  "main": "main.js",
+  "main": "./lib/main.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/johnmartel/organization-membership-action/issues"
   },
-  "homepage": "https://github.com/johnmartel/organization-membership-action#readme"
+  "homepage": "https://github.com/johnmartel/organization-membership-action#readme",
+  "devDependencies": {
+    "typescript": "3.8.3"
+  }
 }
