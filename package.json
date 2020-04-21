@@ -1,0 +1,24 @@
+{
+  "name": "organization-membership-action",
+  "version": "1.0.0",
+  "description": "A GitHub action to manage organizations and teams as code",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnmartel/organization-membership-action.git"
+  },
+  "keywords": [
+    "github",
+    "action",
+    "management"
+  ],
+  "author": "John Martel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnmartel/organization-membership-action/issues"
+  },
+  "homepage": "https://github.com/johnmartel/organization-membership-action#readme"
+}
