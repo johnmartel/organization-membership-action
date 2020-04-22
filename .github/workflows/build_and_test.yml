@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 env:
-  NODE_VERSION: 12.13.0
+  NODE_VERSION: 12.16.2
 
 jobs:
   check:
@@ -20,3 +20,4 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+      - run: docker build .

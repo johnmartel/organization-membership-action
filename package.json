@@ -18,7 +18,7 @@
     "action",
     "management"
   ],
-  "author": "John Martel",
+  "author": "John Martel <jonathan.martel@coglinc.ca>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/johnmartel/organization-membership-action/issues"
