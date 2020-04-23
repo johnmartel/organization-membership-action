@@ -39,5 +39,13 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
     "prettier/prettier": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts"],
+      "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off"
+      }
+    }
+  ]
 }
