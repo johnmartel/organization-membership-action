@@ -59,3 +59,12 @@ public_members:
 ```
 
 The roles are defined in the [API documentation](https://developer.github.com/v3/orgs/members/#parameters-1).
+
+## Building
+
+```shell script
+npm run lint
+npm test
+npm run build:clean
+docker build .
+```
