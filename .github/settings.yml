@@ -5,6 +5,11 @@ repository:
   description: Manage your Github organization/teams membership with pull requests!
   topics: github, actions, management
 
+labels:
+  - name: dependencies
+    color: '#70f9e0'
+    description: Update dependencies
+
 branches:
   - name: master
     protection:
