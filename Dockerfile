@@ -10,8 +10,10 @@ LABEL "maintainer"="John Martel <jonathan.martel@coglinc.ca>"
 
 COPY package.json .
 COPY package-lock.json .
-COPY lib .
+COPY tsconfig.json .
+COPY src ./src
 
-RUN npm install --production
+RUN npm install
+RUN npm run build
 
-ENTRYPOINT ["node", "/main.js"]
+ENTRYPOINT ["node", "/lib/index.js"]

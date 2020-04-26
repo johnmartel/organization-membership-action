@@ -2,9 +2,11 @@
   "name": "organization-membership-action",
   "version": "1.0.0",
   "description": "A GitHub action to manage organizations and teams as code",
-  "main": "./lib/main.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "tsc",
+    "build:clean": "npm run clean && tsc",
+    "clean": "rimraf lib",
     "lint": "eslint src --max-warnings 0 --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "test": "jest",
@@ -27,6 +29,7 @@
   "homepage": "https://github.com/johnmartel/organization-membership-action#readme",
   "devDependencies": {
     "@types/jest": "25.2.1",
+    "@types/lodash": "4.14.150",
     "@typescript-eslint/eslint-plugin": "2.30.0",
     "@typescript-eslint/parser": "2.30.0",
     "eslint": "6.8.0",
@@ -40,5 +43,12 @@
     "rimraf": "3.0.2",
     "ts-jest": "25.4.0",
     "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "@actions/core": "1.2.3",
+    "@octokit/rest": "17.6.0",
+    "@octokit/types": "2.12.1",
+    "actions-toolkit": "4.0.0",
+    "lodash": "4.17.15"
   }
 }
