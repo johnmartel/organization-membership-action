@@ -26,7 +26,10 @@ This action has no output
 
 ### Secrets
 
-This action depends on the `GITHUB_TOKEN` secret.
+#### `ORG_MEMBERSHIP_MANAGEMENT_TOKEN`
+The Github membership management endpoints require a [personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line).
+Create a new one and [create a new secret named `ORG_MEMBERSHIP_MANAGEMENT_TOKEN` in your repository](https://help.github.com/en/github/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+with the value of your new personal access token.
 
 ### Example usage
 
@@ -40,7 +43,7 @@ jobs:
       - name: Manage organization membership
         uses: johnmartel/organization-membership-action@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG_MEMBERSHIP_MANAGEMENT_TOKEN: ${{ secrets.ORG_MEMBERSHIP_MANAGEMENT_TOKEN }}
 ```
 
 #### .github/organization/members.yml

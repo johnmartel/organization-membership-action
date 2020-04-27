@@ -3,5 +3,5 @@ import action from './action';
 
 Toolkit.run(action, {
   event: 'push',
-  secrets: ['GITHUB_TOKEN'],
+  token: process.env.ORG_MEMBERSHIP_MANAGEMENT_TOKEN,
 });
