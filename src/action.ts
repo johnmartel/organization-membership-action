@@ -1,29 +1,47 @@
-import core from '@actions/core';
+import * as core from '@actions/core';
 import { Toolkit } from 'actions-toolkit';
 import PushPayload from './pushPayload';
-
-const MEMBERS_FILENAME = './github/organization/members.yml';
+import GithubOrganization from './githubOrganization';
+import MembersFile from './membersFile';
 
 export default async function (tools: Toolkit): Promise<void> {
-  tools.log.debug(tools.context.payload);
-
   try {
+    tools.log('Verify if organization membership file was modified');
+
     const payloadWrapper: PushPayload = new PushPayload(tools.context.payload);
-    const membersFileModified: boolean = await payloadWrapper.fileWasModified(MEMBERS_FILENAME, tools.context.repo, tools.github);
-    tools.log.info('members file modified: ', membersFileModified);
+    const membersFileModified: boolean = await payloadWrapper.fileWasModified(
+      MembersFile.FILENAME,
+      tools.context.repo,
+      tools.github,
+    );
 
     if (!membersFileModified) {
-      tools.log.info('"%s" not modified, this is ok, nothing to do, exiting...', MEMBERS_FILENAME);
-      tools.exit.neutral();
+      tools.exit.success(`"${MembersFile.FILENAME}" not modified, this is ok, nothing to do`);
     } else {
-      // TODO extract organization login
-      // TODO fetch organization members
-      // TODO use lodash to find added/updated/removed membership
-      // TODO make appropriate modifications
+      const organizationName = payloadWrapper.organizationLogin;
+      tools.log('%s was modified, modifying %s membership...', MembersFile.FILENAME, organizationName);
+      const membersFile = new MembersFile(tools.getFile(MembersFile.FILENAME));
+      const organization = new GithubOrganization(organizationName, tools.github);
+
+      tools.log('Invite new members');
+      const addOrUpdateMembershipResults = await organization.inviteNewMembers(membersFile.allMembers);
+      addOrUpdateMembershipResults.forEach((result) => {
+        tools.log.debug(result.toString());
+      });
+
+      tools.log('Conceal existing members');
+      await organization.concealPublicMembers(membersFile.privateMembers);
+
+      tools.log('Publicize concealed members');
+      await organization.deconcealPrivateMembers(membersFile.publicMembers);
+
+      tools.log('Remove members');
+      await organization.removeMembers(membersFile.allMembers);
+
       tools.exit.success('Completed!');
     }
   } catch (error) {
-    tools.log.error(error.message);
+    tools.log.error(error.message, error);
     if (error.errors) {
       tools.log.error(error.errors);
     }

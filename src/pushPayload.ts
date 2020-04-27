@@ -1,16 +1,25 @@
 import { Octokit } from '@octokit/rest';
 import { WebhookPayloadWithRepository } from 'actions-toolkit/lib/context';
 import some from 'lodash/some';
-import { CompareCommitsResponseType } from './types';
+import { CompareCommitsResponseType } from './octokitTypes';
+import NoRepositoryError from './errors/NoRepositoryError';
 
 export default class PushPayload {
   private payload: WebhookPayloadWithRepository;
 
-  public constructor(payload: WebhookPayloadWithRepository) {
+  constructor(payload: WebhookPayloadWithRepository) {
     this.payload = payload;
   }
 
-  public async fileWasModified(
+  get organizationLogin(): string {
+    if (this.payload.repository) {
+      return this.payload.repository?.owner.login;
+    }
+
+    throw new NoRepositoryError();
+  }
+
+  async fileWasModified(
     filename: string,
     repo: {
       owner: string;
@@ -25,11 +34,6 @@ export default class PushPayload {
       repo: repo.repo,
     });
 
-    const files = response.data.files;
-    files.forEach((file) => {
-      console.log(file.filename);
-    });
-
-    return some(files, ['filename', filename]);
+    return some(response.data.files, ['filename', filename]);
   }
 }
