@@ -18,6 +18,9 @@
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/explicit-member-accessibility": ["error", {
+      "accessibility": "no-public"
+    }],
     "import/export": "error",
     "import/first": "error",
     "import/named": "error",
