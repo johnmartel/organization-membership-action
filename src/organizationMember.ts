@@ -7,8 +7,8 @@ export class OrganizationMember {
   readonly login: string;
   readonly role: MemberRole;
 
-  constructor(login: string, isSiteAdmin: boolean) {
+  constructor(login: string, role: MemberRole) {
     this.login = login;
-    this.role = isSiteAdmin ? MemberRole.ADMIN : MemberRole.MEMBER;
+    this.role = role;
   }
 }

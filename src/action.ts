@@ -26,17 +26,14 @@ export default async function (tools: Toolkit): Promise<void> {
       tools.log('Invite new members');
       const addOrUpdateMembershipResults = await organization.inviteNewMembers(membersFile.allMembers);
       addOrUpdateMembershipResults.forEach((result) => {
-        tools.log.debug(result.toString());
+        tools.log(result.toString());
       });
 
-      tools.log('Conceal existing members');
-      await organization.concealPublicMembers(membersFile.privateMembers);
-
-      tools.log('Publicize concealed members');
-      await organization.deconcealPrivateMembers(membersFile.publicMembers);
-
       tools.log('Remove members');
-      await organization.removeMembers(membersFile.allMembers);
+      const removeMembershipResults = await organization.removeMembers(membersFile.allMembers);
+      removeMembershipResults.forEach((result) => {
+        tools.log(result.toString());
+      });
 
       tools.exit.success('Completed!');
     }

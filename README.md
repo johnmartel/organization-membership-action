@@ -12,6 +12,14 @@ A [Github action](https://github.com/features/actions) to manage organization an
 This action will compare the contents of the `.github/organization/members.yml` file of your repository with the actual
 membership of the containing organization and invite newly defined members or remove deleted members.
 
+Supported member types:
+- admin
+- member
+- Github member invitees
+
+:warning: This action does not support non-owner members (i.e. `billing_manager`, `hiring_manager`, `reinstate`) that are not
+direct members and non-Github invitees.
+
 Of course, this will only work for organization-owned repositories.
 
 ### Trigger
@@ -56,7 +64,7 @@ This file defines the required members for your organization when this action co
 format is:
 
 ```yaml
-public_members:
+members:
   - name: johnmartel
     role: admin
   - name: sebasrobert

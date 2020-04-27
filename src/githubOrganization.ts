@@ -1,9 +1,11 @@
 import { Octokit } from '@octokit/rest';
 import differenceWith from 'lodash/differenceWith';
+import concat from 'lodash/concat';
 import isEqual from 'lodash/isEqual';
-import { ListMembersResponseType } from './octokitTypes';
-import { OrganizationMember } from './organizationMember';
+import { ListMembersResponseType, ListPendingInvitationsResponseType } from './octokitTypes';
+import { MemberRole, OrganizationMember } from './organizationMember';
 import { AddOrUpdateMembershipResult } from './githubOrgOperationResults/addOrUpdateMembershipResult';
+import { RemoveMembershipResult } from './githubOrgOperationResults/removeMembershipResult';
 
 export default class GithubOrganization {
   private name: string;
@@ -19,38 +21,68 @@ export default class GithubOrganization {
   async inviteNewMembers(allMembers: OrganizationMember[]): Promise<AddOrUpdateMembershipResult[]> {
     await this.listMembers();
 
+    const results: AddOrUpdateMembershipResult[] = [];
     const newOrModifiedMembers = differenceWith(allMembers, this.currentMembers || [], isEqual);
-    const promises = newOrModifiedMembers.map((member) =>
-      this.github.orgs.addOrUpdateMembership({
+
+    for (const member of newOrModifiedMembers) {
+      const addOrUpdateMembershipResult = await this.github.orgs.addOrUpdateMembership({
         org: this.name,
         username: member.login,
         role: member.role,
-      }),
-    );
+      });
 
-    const addOrUpdateMembershipResult = await Promise.all(promises);
+      results.push(
+        new AddOrUpdateMembershipResult(
+          addOrUpdateMembershipResult.data.user.login,
+          addOrUpdateMembershipResult.data.state,
+          addOrUpdateMembershipResult.data.role,
+        ),
+      );
+    }
 
-    return addOrUpdateMembershipResult.map(
-      (result) => new AddOrUpdateMembershipResult(result.data.user.login, result.data.state, result.data.role),
-    );
+    return results;
   }
 
-  async concealPublicMembers(privateMembers: OrganizationMember[]): Promise<void> {
+  async removeMembers(allMembers: OrganizationMember[]): Promise<RemoveMembershipResult[]> {
     await this.listMembers();
-  }
 
-  async deconcealPrivateMembers(publicMembers: OrganizationMember[]): Promise<void> {
-    await this.listMembers();
-  }
+    const results: RemoveMembershipResult[] = [];
+    const removedMembers = differenceWith(this.currentMembers || [], allMembers, (first, second) => first.login === second.login);
 
-  async removeMembers(allMembers: OrganizationMember[]): Promise<void> {
-    await this.listMembers();
+    for (const member of removedMembers) {
+      await this.github.orgs.removeMembership({
+        org: this.name,
+        username: member.login,
+      });
+
+      results.push(new RemoveMembershipResult(member.login));
+    }
+
+    return results;
   }
 
   private async listMembers(): Promise<void> {
     if (this.currentMembers === undefined) {
-      const response: ListMembersResponseType = await this.github.orgs.listMembers({ org: this.name });
-      this.currentMembers = response.data.map((member) => new OrganizationMember(member.login, member.site_admin));
+      const adminsResponse: ListMembersResponseType = await this.github.orgs.listMembers({
+        org: this.name,
+        role: MemberRole.ADMIN,
+      });
+      const admins = adminsResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.ADMIN));
+
+      const membersResponse: ListMembersResponseType = await this.github.orgs.listMembers({
+        org: this.name,
+        role: MemberRole.MEMBER,
+      });
+      const members = membersResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.ADMIN));
+
+      const invitationsResponse: ListPendingInvitationsResponseType = await this.github.orgs.listPendingInvitations({
+        org: this.name,
+      });
+      const pendingInvitations = invitationsResponse.data
+        .filter((invitee) => ['direct_member', 'admin'].includes(invitee.role))
+        .map((invitee) => new OrganizationMember(invitee.login, invitee.role === 'admin' ? MemberRole.ADMIN : MemberRole.MEMBER));
+
+      this.currentMembers = concat(admins, members, pendingInvitations);
     }
   }
 }

@@ -1,28 +1,24 @@
 import yaml from 'js-yaml';
-import concat from 'lodash/concat';
-import { OrganizationMember } from './organizationMember';
+import { MemberRole, OrganizationMember } from './organizationMember';
+
+type MemberFileEntry = { login: string; role: MemberRole };
 
 export default class MembersFile {
   static readonly FILENAME: string = '.github/organization/members.yml';
 
-  private members: {
-    public_members: OrganizationMember[];
-    private_members: OrganizationMember[];
+  private file: {
+    members: MemberFileEntry[];
   };
 
   constructor(contents: string) {
-    this.members = yaml.safeLoad(contents);
-  }
-
-  get publicMembers(): OrganizationMember[] {
-    return this.members.public_members;
-  }
-
-  get privateMembers(): OrganizationMember[] {
-    return this.members.private_members;
+    this.file = yaml.safeLoad(contents);
   }
 
   get allMembers(): OrganizationMember[] {
-    return concat(this.publicMembers, this.privateMembers);
+    if (!this.file.members) {
+      return [];
+    }
+
+    return this.file.members.map((member) => new OrganizationMember(member.login, member.role));
   }
 }
