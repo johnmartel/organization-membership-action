@@ -14,5 +14,6 @@ module.exports = {
   moduleFileExtensions: ['js', 'ts', 'json'],
   preset: 'ts-jest',
   reporters: ['default', 'jest-junit'],
+  setupFilesAfterEnv: ['jest-extended'],
   testEnvironment: 'node',
 };

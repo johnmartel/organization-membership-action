@@ -20,6 +20,7 @@
     "target": "es5"
   },
   "include": [
+    "global.d.ts",
     "src/**/*"
   ],
   "compileOnSave": false
