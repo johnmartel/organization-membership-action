@@ -9,8 +9,8 @@
     "clean": "rimraf lib",
     "lint": "eslint src --max-warnings 0 --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "test": "jest",
-    "test:ci": "jest --ci"
+    "test": "jest --coverage",
+    "test:ci": "jest --coverage --ci"
   },
   "repository": {
     "type": "git",

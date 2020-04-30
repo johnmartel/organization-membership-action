@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 module.exports = {
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ['src/**/*.ts', '!lib/**', '!node_modules/**'],
   coverageDirectory: 'coverage',
   coverageThreshold: {
