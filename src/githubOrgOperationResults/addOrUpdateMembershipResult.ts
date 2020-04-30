@@ -1,4 +1,7 @@
-export class AddOrUpdateMembershipResult {
+import { Signale } from 'signale';
+import { OperationResult } from './GithubOrganizationOperationResults';
+
+export class AddOrUpdateMembershipResult implements OperationResult {
   readonly login: string;
   readonly state: string;
   readonly role: string;
@@ -9,7 +12,7 @@ export class AddOrUpdateMembershipResult {
     this.role = role;
   }
 
-  toString(): string {
-    return `"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`;
+  printResult(logger: Signale): void {
+    logger.info(`"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`);
   }
 }

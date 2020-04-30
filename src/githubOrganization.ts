@@ -6,6 +6,7 @@ import { ListMembersResponseType, ListPendingInvitationsResponseType } from './o
 import { MemberRole, OrganizationMember } from './organizationMember';
 import { AddOrUpdateMembershipResult } from './githubOrgOperationResults/addOrUpdateMembershipResult';
 import { RemoveMembershipResult } from './githubOrgOperationResults/removeMembershipResult';
+import {GithubOrganizationOperationResults} from "./githubOrgOperationResults/GithubOrganizationOperationResults";
 
 export default class GithubOrganization {
   private name: string;
@@ -18,12 +19,12 @@ export default class GithubOrganization {
     this.currentMembers = undefined;
   }
 
-  async inviteNewMembers(allMembers: OrganizationMember[]): Promise<AddOrUpdateMembershipResult[]> {
+  async inviteNewMembers(allMembers: OrganizationMember[]): Promise<GithubOrganizationOperationResults> {
     await this.listMembers();
 
-    const results: AddOrUpdateMembershipResult[] = [];
     const newOrModifiedMembers = differenceWith(allMembers, this.currentMembers || [], isEqual);
 
+    const results = new GithubOrganizationOperationResults();
     for (const member of newOrModifiedMembers) {
       const addOrUpdateMembershipResult = await this.github.orgs.addOrUpdateMembership({
         org: this.name,
@@ -31,7 +32,7 @@ export default class GithubOrganization {
         role: member.role,
       });
 
-      results.push(
+      results.add(
         new AddOrUpdateMembershipResult(
           addOrUpdateMembershipResult.data.user.login,
           addOrUpdateMembershipResult.data.state,
@@ -43,19 +44,19 @@ export default class GithubOrganization {
     return results;
   }
 
-  async removeMembers(allMembers: OrganizationMember[]): Promise<RemoveMembershipResult[]> {
+  async removeMembers(allMembers: OrganizationMember[]): Promise<GithubOrganizationOperationResults> {
     await this.listMembers();
 
-    const results: RemoveMembershipResult[] = [];
     const removedMembers = differenceWith(this.currentMembers || [], allMembers, (first, second) => first.login === second.login);
 
+    const results = new GithubOrganizationOperationResults();
     for (const member of removedMembers) {
       await this.github.orgs.removeMembership({
         org: this.name,
         username: member.login,
       });
 
-      results.push(new RemoveMembershipResult(member.login));
+      results.add(new RemoveMembershipResult(member.login));
     }
 
     return results;

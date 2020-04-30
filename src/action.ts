@@ -25,15 +25,11 @@ export default async function (tools: Toolkit): Promise<void> {
 
       tools.log('Invite new members');
       const addOrUpdateMembershipResults = await organization.inviteNewMembers(membersFile.allMembers);
-      addOrUpdateMembershipResults.forEach((result) => {
-        tools.log(result.toString());
-      });
+      addOrUpdateMembershipResults.printResults(tools.log);
 
       tools.log('Remove members');
       const removeMembershipResults = await organization.removeMembers(membersFile.allMembers);
-      removeMembershipResults.forEach((result) => {
-        tools.log(result.toString());
-      });
+      removeMembershipResults.printResults(tools.log);
 
       tools.exit.success('Completed!');
     }
