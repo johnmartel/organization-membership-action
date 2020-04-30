@@ -10,11 +10,13 @@ A [Github action](https://github.com/features/actions) to manage organization an
 ## Usage
 
 This action will compare the contents of the `.github/organization/members.yml` file of your repository with the actual
-membership of the containing organization. Of course, this will only work for organization-owned repositories.
+membership of the containing organization and invite newly defined members or remove deleted members.
+
+Of course, this will only work for organization-owned repositories.
 
 ### Trigger
 
-This action will fail on any event other than [push](https://help.github.com/en/actions/reference/events-that-trigger-workflows#push-event-push).
+This action will skip on any event other than [push](https://help.github.com/en/actions/reference/events-that-trigger-workflows#push-event-push).
 
 ### Inputs
 
@@ -46,7 +48,7 @@ jobs:
           ORG_MEMBERSHIP_MANAGEMENT_TOKEN: ${{ secrets.ORG_MEMBERSHIP_MANAGEMENT_TOKEN }}
 ```
 
-#### .github/organization/members.yml
+### .github/organization/members.yml
 
 This action will only fire if `.github/organization/members.yml` has been modified in the triggering event.
 
