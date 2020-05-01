@@ -11,6 +11,10 @@ export class RemoveMembershipSuccess implements OperationResult {
   printResult(logger: Signale): void {
     logger.info(`"${this.login}" was removed`);
   }
+
+  hasError(): boolean {
+    return false;
+  }
 }
 
 export class RemoveMembershipFailure implements OperationResult {
@@ -24,5 +28,9 @@ export class RemoveMembershipFailure implements OperationResult {
 
   printResult(logger: Signale): void {
     logger.error('"%s" could not be removed: %s', this.login, this.message);
+  }
+
+  hasError(): boolean {
+    return true;
   }
 }

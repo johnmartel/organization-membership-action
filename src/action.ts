@@ -31,7 +31,11 @@ export default async function (tools: Toolkit): Promise<void> {
       const removeMembershipResults = await organization.removeMembers(membersFile.allMembers);
       removeMembershipResults.printResults(tools.log);
 
-      tools.exit.success('Completed!');
+      if (addOrUpdateMembershipResults.hasErrors() || removeMembershipResults.hasErrors()) {
+        tools.exit.failure('Completed with errors, see the logs above');
+      } else {
+        tools.exit.success('Completed!');
+      }
     }
   } catch (error) {
     tools.log.error(error.message, error);

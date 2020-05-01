@@ -15,6 +15,10 @@ export class AddOrUpdateMembershipSuccess implements OperationResult {
   printResult(logger: Signale): void {
     logger.info(`"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`);
   }
+
+  hasError(): boolean {
+    return false;
+  }
 }
 
 export class AddOrUpdateMembershipFailure implements OperationResult {
@@ -30,5 +34,9 @@ export class AddOrUpdateMembershipFailure implements OperationResult {
 
   printResult(logger: Signale): void {
     logger.error('"%s" could not be added/updated with role "%s": %s', this.login, this.role, this.message);
+  }
+
+  hasError(): boolean {
+    return true;
   }
 }

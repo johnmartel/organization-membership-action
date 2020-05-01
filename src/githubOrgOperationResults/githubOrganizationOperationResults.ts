@@ -2,6 +2,7 @@ import { Signale } from 'signale';
 
 export interface OperationResult {
   printResult(logger: Signale): void;
+  hasError(): boolean;
 }
 
 export class GithubOrganizationOperationResults {
@@ -23,5 +24,9 @@ export class GithubOrganizationOperationResults {
         result.printResult(logger);
       });
     }
+  }
+
+  hasErrors(): boolean {
+    return this.results.some((result) => result.hasError());
   }
 }
