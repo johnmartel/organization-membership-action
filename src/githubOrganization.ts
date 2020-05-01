@@ -4,9 +4,12 @@ import concat from 'lodash/concat';
 import isEqual from 'lodash/isEqual';
 import { ListMembersResponseType, ListPendingInvitationsResponseType } from './octokitTypes';
 import { MemberRole, OrganizationMember } from './organizationMember';
-import { AddOrUpdateMembershipResult } from './githubOrgOperationResults/addOrUpdateMembershipResult';
-import { RemoveMembershipResult } from './githubOrgOperationResults/removeMembershipResult';
-import {GithubOrganizationOperationResults} from "./githubOrgOperationResults/GithubOrganizationOperationResults";
+import {
+  AddOrUpdateMembershipFailure,
+  AddOrUpdateMembershipSuccess,
+} from './githubOrgOperationResults/addOrUpdateMembershipResult';
+import { RemoveMembershipFailure, RemoveMembershipSuccess } from './githubOrgOperationResults/removeMembershipResult';
+import { GithubOrganizationOperationResults } from './githubOrgOperationResults/githubOrganizationOperationResults';
 
 export default class GithubOrganization {
   private name: string;
@@ -26,19 +29,23 @@ export default class GithubOrganization {
 
     const results = new GithubOrganizationOperationResults();
     for (const member of newOrModifiedMembers) {
-      const addOrUpdateMembershipResult = await this.github.orgs.addOrUpdateMembership({
-        org: this.name,
-        username: member.login,
-        role: member.role,
-      });
+      try {
+        const addOrUpdateMembershipResult = await this.github.orgs.addOrUpdateMembership({
+          org: this.name,
+          username: member.login,
+          role: member.role,
+        });
 
-      results.add(
-        new AddOrUpdateMembershipResult(
-          addOrUpdateMembershipResult.data.user.login,
-          addOrUpdateMembershipResult.data.state,
-          addOrUpdateMembershipResult.data.role,
-        ),
-      );
+        results.add(
+          new AddOrUpdateMembershipSuccess(
+            addOrUpdateMembershipResult.data.user.login,
+            addOrUpdateMembershipResult.data.state,
+            addOrUpdateMembershipResult.data.role,
+          ),
+        );
+      } catch (error) {
+        results.add(new AddOrUpdateMembershipFailure(member.login, member.role, error.message));
+      }
     }
 
     return results;
@@ -51,12 +58,16 @@ export default class GithubOrganization {
 
     const results = new GithubOrganizationOperationResults();
     for (const member of removedMembers) {
-      await this.github.orgs.removeMembership({
-        org: this.name,
-        username: member.login,
-      });
+      try {
+        await this.github.orgs.removeMembership({
+          org: this.name,
+          username: member.login,
+        });
 
-      results.add(new RemoveMembershipResult(member.login));
+        results.add(new RemoveMembershipSuccess(member.login));
+      } catch (error) {
+        results.add(new RemoveMembershipFailure(member.login, error.message));
+      }
     }
 
     return results;

@@ -1,7 +1,7 @@
 import { Signale } from 'signale';
-import { OperationResult } from './GithubOrganizationOperationResults';
+import { OperationResult } from './githubOrganizationOperationResults';
 
-export class AddOrUpdateMembershipResult implements OperationResult {
+export class AddOrUpdateMembershipSuccess implements OperationResult {
   readonly login: string;
   readonly state: string;
   readonly role: string;
@@ -14,5 +14,21 @@ export class AddOrUpdateMembershipResult implements OperationResult {
 
   printResult(logger: Signale): void {
     logger.info(`"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`);
+  }
+}
+
+export class AddOrUpdateMembershipFailure implements OperationResult {
+  readonly login: string;
+  readonly role: string;
+  readonly message: string;
+
+  constructor(login: string, role: string, message: string) {
+    this.login = login;
+    this.role = role;
+    this.message = message;
+  }
+
+  printResult(logger: Signale): void {
+    logger.error('"%s" could not be added/updated with role "%s": %s', this.login, this.role, this.message);
   }
 }
