@@ -23,7 +23,7 @@ export default async function (tools: Toolkit): Promise<void> {
       const membersFile = new MembersFile(tools.getFile(MembersFile.FILENAME));
       const organization = new GithubOrganization(organizationName, tools.github);
 
-      tools.log('Invite new members');
+      tools.log('Invite new members or update existing members');
       const addOrUpdateMembershipResults = await organization.inviteNewMembers(membersFile.allMembers);
       addOrUpdateMembershipResults.printResults(tools.log);
 
