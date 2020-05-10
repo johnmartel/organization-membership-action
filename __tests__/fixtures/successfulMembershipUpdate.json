@@ -1,0 +1,40 @@
+{
+  "url": "https://api.github.com/orgs/octocat/memberships/defunkt",
+  "state": "active",
+  "role": "admin",
+  "organization_url": "https://api.github.com/orgs/octocat",
+  "organization": {
+    "login": "coglinc",
+    "id": 1,
+    "node_id": "MDEyOk9yZ2FuaXphdGlvbjE=",
+    "url": "https://api.github.com/orgs/coglinc",
+    "repos_url": "https://api.github.com/orgs/coglinc/repos",
+    "events_url": "https://api.github.com/orgs/coglinc/events",
+    "hooks_url": "https://api.github.com/orgs/coglinc/hooks",
+    "issues_url": "https://api.github.com/orgs/coglinc/issues",
+    "members_url": "https://api.github.com/orgs/coglinc/members{/member}",
+    "public_members_url": "https://api.github.com/orgs/coglinc/public_members{/member}",
+    "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+    "description": "A great organization"
+  },
+  "user": {
+    "login": "jetre219",
+    "id": 1,
+    "node_id": "MDQ6VXNlcjE=",
+    "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/jetre219",
+    "html_url": "https://github.com/jetre219",
+    "followers_url": "https://api.github.com/users/jetre219/followers",
+    "following_url": "https://api.github.com/users/jetre219/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jetre219/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/jetre219/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jetre219/subscriptions",
+    "organizations_url": "https://api.github.com/users/jetre219/orgs",
+    "repos_url": "https://api.github.com/users/jetre219/repos",
+    "events_url": "https://api.github.com/users/jetre219/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/jetre219/received_events",
+    "type": "User",
+    "site_admin": false
+  }
+}

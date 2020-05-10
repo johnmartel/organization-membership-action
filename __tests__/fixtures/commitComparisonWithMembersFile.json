@@ -1,0 +1,264 @@
+{
+  "url": "https://api.github.com/repos/coglinc/.github/compare/848b24af6de93367002b4fef72cdde91d31d0d76...968eb2e4a246e64381285d6440e986384921ea1b",
+  "html_url": "https://github.com/coglinc/.github/compare/848b24af6de93367002b4fef72cdde91d31d0d76...968eb2e4a246e64381285d6440e986384921ea1b",
+  "permalink_url": "https://github.com/coglinc/.github/compare/coglinc:848b24a...coglinc:968eb2e",
+  "diff_url": "https://github.com/coglinc/.github/compare/848b24af6de93367002b4fef72cdde91d31d0d76...968eb2e4a246e64381285d6440e986384921ea1b.diff",
+  "patch_url": "https://github.com/coglinc/.github/compare/848b24af6de93367002b4fef72cdde91d31d0d76...968eb2e4a246e64381285d6440e986384921ea1b.patch",
+  "base_commit": {
+    "sha": "848b24af6de93367002b4fef72cdde91d31d0d76",
+    "node_id": "MDY6Q29tbWl0MjU2MDUyOTI0Ojg0OGIyNGFmNmRlOTMzNjcwMDJiNGZlZjcyY2RkZTkxZDMxZDBkNzY=",
+    "commit": {
+      "author": {
+        "name": "John Martel",
+        "email": "jonathan.martel@coglinc.ca",
+        "date": "2020-04-30T02:40:30Z"
+      },
+      "committer": {
+        "name": "John Martel",
+        "email": "jonathan.martel@coglinc.ca",
+        "date": "2020-04-30T02:40:30Z"
+      },
+      "message": "Fix members.yml",
+      "tree": {
+        "sha": "1db91de00ee44f3139097c03e49eba54b07abe61",
+        "url": "https://api.github.com/repos/coglinc/.github/git/trees/1db91de00ee44f3139097c03e49eba54b07abe61"
+      },
+      "url": "https://api.github.com/repos/coglinc/.github/git/commits/848b24af6de93367002b4fef72cdde91d31d0d76",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - http://gpgtools.org\n\niEYEABECAAYFAl6qOqUACgkQMhFjroOkBorJ2gCfVkSWCxYUnsv3nzluAjsLKOgW\nNqAAn1PIhKjWl+TLeMESFUm+qTHXZX6d\n=Lie0\n-----END PGP SIGNATURE-----",
+        "payload": "tree 1db91de00ee44f3139097c03e49eba54b07abe61\nparent 5397b598fff40d1b4e3c28a4416be6505c88ff26\nauthor John Martel <jonathan.martel@coglinc.ca> 1588214430 -0400\ncommitter John Martel <jonathan.martel@coglinc.ca> 1588214430 -0400\n\nFix members.yml\n"
+      }
+    },
+    "url": "https://api.github.com/repos/coglinc/.github/commits/848b24af6de93367002b4fef72cdde91d31d0d76",
+    "html_url": "https://github.com/coglinc/.github/commit/848b24af6de93367002b4fef72cdde91d31d0d76",
+    "comments_url": "https://api.github.com/repos/coglinc/.github/commits/848b24af6de93367002b4fef72cdde91d31d0d76/comments",
+    "author": {
+      "login": "johnmartel",
+      "id": 3068511,
+      "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/johnmartel",
+      "html_url": "https://github.com/johnmartel",
+      "followers_url": "https://api.github.com/users/johnmartel/followers",
+      "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+      "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+      "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+      "repos_url": "https://api.github.com/users/johnmartel/repos",
+      "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "johnmartel",
+      "id": 3068511,
+      "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/johnmartel",
+      "html_url": "https://github.com/johnmartel",
+      "followers_url": "https://api.github.com/users/johnmartel/followers",
+      "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+      "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+      "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+      "repos_url": "https://api.github.com/users/johnmartel/repos",
+      "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "5397b598fff40d1b4e3c28a4416be6505c88ff26",
+        "url": "https://api.github.com/repos/coglinc/.github/commits/5397b598fff40d1b4e3c28a4416be6505c88ff26",
+        "html_url": "https://github.com/coglinc/.github/commit/5397b598fff40d1b4e3c28a4416be6505c88ff26"
+      }
+    ]
+  },
+  "merge_base_commit": {
+    "sha": "848b24af6de93367002b4fef72cdde91d31d0d76",
+    "node_id": "MDY6Q29tbWl0MjU2MDUyOTI0Ojg0OGIyNGFmNmRlOTMzNjcwMDJiNGZlZjcyY2RkZTkxZDMxZDBkNzY=",
+    "commit": {
+      "author": {
+        "name": "John Martel",
+        "email": "jonathan.martel@coglinc.ca",
+        "date": "2020-04-30T02:40:30Z"
+      },
+      "committer": {
+        "name": "John Martel",
+        "email": "jonathan.martel@coglinc.ca",
+        "date": "2020-04-30T02:40:30Z"
+      },
+      "message": "Fix members.yml",
+      "tree": {
+        "sha": "1db91de00ee44f3139097c03e49eba54b07abe61",
+        "url": "https://api.github.com/repos/coglinc/.github/git/trees/1db91de00ee44f3139097c03e49eba54b07abe61"
+      },
+      "url": "https://api.github.com/repos/coglinc/.github/git/commits/848b24af6de93367002b4fef72cdde91d31d0d76",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - http://gpgtools.org\n\niEYEABECAAYFAl6qOqUACgkQMhFjroOkBorJ2gCfVkSWCxYUnsv3nzluAjsLKOgW\nNqAAn1PIhKjWl+TLeMESFUm+qTHXZX6d\n=Lie0\n-----END PGP SIGNATURE-----",
+        "payload": "tree 1db91de00ee44f3139097c03e49eba54b07abe61\nparent 5397b598fff40d1b4e3c28a4416be6505c88ff26\nauthor John Martel <jonathan.martel@coglinc.ca> 1588214430 -0400\ncommitter John Martel <jonathan.martel@coglinc.ca> 1588214430 -0400\n\nFix members.yml\n"
+      }
+    },
+    "url": "https://api.github.com/repos/coglinc/.github/commits/848b24af6de93367002b4fef72cdde91d31d0d76",
+    "html_url": "https://github.com/coglinc/.github/commit/848b24af6de93367002b4fef72cdde91d31d0d76",
+    "comments_url": "https://api.github.com/repos/coglinc/.github/commits/848b24af6de93367002b4fef72cdde91d31d0d76/comments",
+    "author": {
+      "login": "johnmartel",
+      "id": 3068511,
+      "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/johnmartel",
+      "html_url": "https://github.com/johnmartel",
+      "followers_url": "https://api.github.com/users/johnmartel/followers",
+      "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+      "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+      "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+      "repos_url": "https://api.github.com/users/johnmartel/repos",
+      "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "johnmartel",
+      "id": 3068511,
+      "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/johnmartel",
+      "html_url": "https://github.com/johnmartel",
+      "followers_url": "https://api.github.com/users/johnmartel/followers",
+      "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+      "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+      "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+      "repos_url": "https://api.github.com/users/johnmartel/repos",
+      "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "5397b598fff40d1b4e3c28a4416be6505c88ff26",
+        "url": "https://api.github.com/repos/coglinc/.github/commits/5397b598fff40d1b4e3c28a4416be6505c88ff26",
+        "html_url": "https://github.com/coglinc/.github/commit/5397b598fff40d1b4e3c28a4416be6505c88ff26"
+      }
+    ]
+  },
+  "status": "ahead",
+  "ahead_by": 1,
+  "behind_by": 0,
+  "total_commits": 1,
+  "commits": [
+    {
+      "sha": "968eb2e4a246e64381285d6440e986384921ea1b",
+      "node_id": "MDY6Q29tbWl0MjU2MDUyOTI0Ojk2OGViMmU0YTI0NmU2NDM4MTI4NWQ2NDQwZTk4NjM4NDkyMWVhMWI=",
+      "commit": {
+        "author": {
+          "name": "John Martel",
+          "email": "jonathan.martel@coglinc.ca",
+          "date": "2020-05-01T01:11:53Z"
+        },
+        "committer": {
+          "name": "John Martel",
+          "email": "jonathan.martel@coglinc.ca",
+          "date": "2020-05-01T01:11:53Z"
+        },
+        "message": "Test with duplicate member with same role",
+        "tree": {
+          "sha": "0dfccb023d6ee63ea19d94eda3c1c05741fcc09a",
+          "url": "https://api.github.com/repos/coglinc/.github/git/trees/0dfccb023d6ee63ea19d94eda3c1c05741fcc09a"
+        },
+        "url": "https://api.github.com/repos/coglinc/.github/git/commits/968eb2e4a246e64381285d6440e986384921ea1b",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - http://gpgtools.org\n\niEYEABECAAYFAl6rd2UACgkQMhFjroOkBoo7LwCfY8evDzxZKtKaN3TFk0Sd7ByK\nN+EAn3ylUnBj92pn3lG4Rjk2iLtFR2/O\n=d72A\n-----END PGP SIGNATURE-----",
+          "payload": "tree 0dfccb023d6ee63ea19d94eda3c1c05741fcc09a\nparent 848b24af6de93367002b4fef72cdde91d31d0d76\nauthor John Martel <jonathan.martel@coglinc.ca> 1588295513 -0400\ncommitter John Martel <jonathan.martel@coglinc.ca> 1588295513 -0400\n\nTest with duplicate member with same role\n"
+        }
+      },
+      "url": "https://api.github.com/repos/coglinc/.github/commits/968eb2e4a246e64381285d6440e986384921ea1b",
+      "html_url": "https://github.com/coglinc/.github/commit/968eb2e4a246e64381285d6440e986384921ea1b",
+      "comments_url": "https://api.github.com/repos/coglinc/.github/commits/968eb2e4a246e64381285d6440e986384921ea1b/comments",
+      "author": {
+        "login": "johnmartel",
+        "id": 3068511,
+        "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/johnmartel",
+        "html_url": "https://github.com/johnmartel",
+        "followers_url": "https://api.github.com/users/johnmartel/followers",
+        "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+        "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+        "repos_url": "https://api.github.com/users/johnmartel/repos",
+        "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "johnmartel",
+        "id": 3068511,
+        "node_id": "MDQ6VXNlcjMwNjg1MTE=",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/3068511?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/johnmartel",
+        "html_url": "https://github.com/johnmartel",
+        "followers_url": "https://api.github.com/users/johnmartel/followers",
+        "following_url": "https://api.github.com/users/johnmartel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/johnmartel/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/johnmartel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/johnmartel/subscriptions",
+        "organizations_url": "https://api.github.com/users/johnmartel/orgs",
+        "repos_url": "https://api.github.com/users/johnmartel/repos",
+        "events_url": "https://api.github.com/users/johnmartel/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/johnmartel/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "848b24af6de93367002b4fef72cdde91d31d0d76",
+          "url": "https://api.github.com/repos/coglinc/.github/commits/848b24af6de93367002b4fef72cdde91d31d0d76",
+          "html_url": "https://github.com/coglinc/.github/commit/848b24af6de93367002b4fef72cdde91d31d0d76"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "sha": "43c81a2dc518a16985aada97613fbe746a21a367",
+      "filename": ".github/organization/members.yml",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/coglinc/.github/blob/968eb2e4a246e64381285d6440e986384921ea1b/.github/organization/members.yml",
+      "raw_url": "https://github.com/coglinc/.github/raw/968eb2e4a246e64381285d6440e986384921ea1b/.github/organization/members.yml",
+      "contents_url": "https://api.github.com/repos/coglinc/.github/contents/.github/organization/members.yml?ref=968eb2e4a246e64381285d6440e986384921ea1b",
+      "patch": "@@ -2,4 +2,4 @@ members:\n   - login: johnmartel\n     role: admin\n   - login: johnmartel\n-    role: member\n+    role: admin"
+    }
+  ]
+}

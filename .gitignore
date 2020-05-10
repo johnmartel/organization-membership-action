@@ -6,3 +6,5 @@ gen
 
 node_modules/
 lib/
+coverage/
+junit.xml

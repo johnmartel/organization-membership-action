@@ -16,10 +16,12 @@
     "noUnusedLocals": true,
     "outDir": "./lib",
     "pretty": true,
+    "resolveJsonModule": true,
     "strict": true,
     "target": "es5"
   },
   "include": [
+    "global.d.ts",
     "src/**/*"
   ],
   "compileOnSave": false

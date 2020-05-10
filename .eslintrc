@@ -1,17 +1,54 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "env": {
+    "jest": true
+  },
   "plugins": [
     "@typescript-eslint",
+    "import",
+    "jest",
     "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/explicit-member-accessibility": ["error", {
+      "accessibility": "no-public"
+    }],
+    "import/export": "error",
+    "import/first": "error",
+    "import/named": "error",
+    "import/newline-after-import": "error",
+    "import/no-absolute-path": "error",
+    "import/no-cycle": "error",
+    "import/no-deprecated": "error",
+    "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/no-named-as-default": "off",
+    "import/no-self-import": "error",
+    "import/no-unresolved": "error",
+    "import/no-unused-modules": "warn",
+    "import/no-useless-path-segments": "error",
+    "import/order": "error",
+    "jest/no-disabled-tests": "error",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
     "prettier/prettier": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts"],
+      "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off"
+      }
+    }
+  ]
 }
