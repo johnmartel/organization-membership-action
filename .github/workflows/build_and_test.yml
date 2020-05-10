@@ -3,6 +3,8 @@ name: Build and test
 on:
   pull_request:
     branches: [ master ]
+  push:
+    branches: [ master ]
 
 env:
   NODE_VERSION: 12.16.2
