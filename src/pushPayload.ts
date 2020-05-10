@@ -2,7 +2,7 @@ import { Octokit } from '@octokit/rest';
 import { WebhookPayloadWithRepository } from 'actions-toolkit/lib/context';
 import some from 'lodash/some';
 import { CompareCommitsResponseType } from './octokitTypes';
-import NoRepositoryError from './errors/NoRepositoryError';
+import NoRepositoryError from './errors/noRepositoryError';
 
 export default class PushPayload {
   private payload: WebhookPayloadWithRepository;
