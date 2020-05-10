@@ -31,7 +31,7 @@
     "@types/jest": "25.2.1",
     "@types/js-yaml": "3.12.3",
     "@types/lodash": "4.14.150",
-    "@typescript-eslint/eslint-plugin": "2.30.0",
+    "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "2.30.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.11.0",
