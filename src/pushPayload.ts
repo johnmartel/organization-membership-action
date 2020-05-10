@@ -1,19 +1,19 @@
 import { Octokit } from '@octokit/rest';
-import { WebhookPayloadWithRepository } from 'actions-toolkit/lib/context';
 import some from 'lodash/some';
+import * as Webhooks from '@octokit/webhooks';
 import { CompareCommitsResponseType } from './octokitTypes';
 import NoRepositoryError from './errors/noRepositoryError';
 
 export default class PushPayload {
-  private payload: WebhookPayloadWithRepository;
+  private payload: Webhooks.WebhookPayloadPush;
 
-  constructor(payload: WebhookPayloadWithRepository) {
+  constructor(payload: Webhooks.WebhookPayloadPush) {
     this.payload = payload;
   }
 
   get organizationLogin(): string {
     if (this.payload.repository) {
-      return this.payload.repository?.owner.login;
+      return this.payload.repository.owner.login;
     }
 
     throw new NoRepositoryError();
