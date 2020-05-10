@@ -12,8 +12,8 @@ import { RemoveMembershipFailure, RemoveMembershipSuccess } from './githubOrgOpe
 import { GithubOrganizationOperationResults } from './githubOrgOperationResults/githubOrganizationOperationResults';
 
 export default class GithubOrganization {
-  private name: string;
-  private github: Octokit;
+  private readonly name: string;
+  private readonly github: Octokit;
   private currentMembers: OrganizationMember[] | undefined;
 
   constructor(name: string, github: Octokit) {
@@ -25,7 +25,7 @@ export default class GithubOrganization {
   async inviteNewMembers(allMembers: OrganizationMember[]): Promise<GithubOrganizationOperationResults> {
     await this.listMembers();
 
-    const newOrModifiedMembers = differenceWith(allMembers, this.currentMembers || [], isEqual);
+    const newOrModifiedMembers = differenceWith(allMembers, this.currentMembers as OrganizationMember[], isEqual);
 
     const results = new GithubOrganizationOperationResults();
     for (const member of newOrModifiedMembers) {
@@ -54,7 +54,11 @@ export default class GithubOrganization {
   async removeMembers(allMembers: OrganizationMember[]): Promise<GithubOrganizationOperationResults> {
     await this.listMembers();
 
-    const removedMembers = differenceWith(this.currentMembers || [], allMembers, (first, second) => first.login === second.login);
+    const removedMembers = differenceWith(
+      this.currentMembers as OrganizationMember[],
+      allMembers,
+      (first, second) => first.login === second.login,
+    );
 
     const results = new GithubOrganizationOperationResults();
     for (const member of removedMembers) {
@@ -85,7 +89,7 @@ export default class GithubOrganization {
         org: this.name,
         role: MemberRole.MEMBER,
       });
-      const members = membersResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.ADMIN));
+      const members = membersResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.MEMBER));
 
       const invitationsResponse: ListPendingInvitationsResponseType = await this.github.orgs.listPendingInvitations({
         org: this.name,

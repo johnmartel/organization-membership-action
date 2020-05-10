@@ -43,6 +43,10 @@ describe('GithubOrganizationOperationResults test suite', () => {
       expect(signale.info).toHaveBeenCalledWith('None!');
     });
 
+    it('should be empty', () => {
+      expect(results).toHaveLength(0);
+    });
+
     it('should not have error', () => {
       expect(results.hasErrors()).toBe(false);
     });
@@ -65,6 +69,10 @@ describe('GithubOrganizationOperationResults test suite', () => {
 
       expect(firstSpy).toHaveBeenCalledWith(signale);
       expect(secondSpy).toHaveBeenCalledWith(signale);
+    });
+
+    it('should have length', () => {
+      expect(results).toHaveLength(2);
     });
 
     describe('without errors', () => {

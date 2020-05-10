@@ -12,6 +12,10 @@ export class GithubOrganizationOperationResults {
     this.results = [];
   }
 
+  get length(): number {
+    return this.results.length;
+  }
+
   add(result: OperationResult): void {
     this.results.push(result);
   }
