@@ -1,3 +1,4 @@
+import 'jest-extended';
 import MembersFile from '../src/membersFile';
 import { MemberRole, OrganizationMember } from '../src/organizationMember';
 
