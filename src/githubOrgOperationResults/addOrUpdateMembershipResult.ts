@@ -13,7 +13,7 @@ export class AddOrUpdateMembershipSuccess implements OperationResult {
   }
 
   printResult(logger: Signale): void {
-    logger.info(`"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`);
+    logger.complete(`"${this.login}" was ${this.state === 'pending' ? 'added' : 'updated'} with role "${this.role}"`);
   }
 
   hasError(): boolean {
