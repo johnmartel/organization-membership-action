@@ -9,7 +9,7 @@ export class RemoveMembershipSuccess implements OperationResult {
   }
 
   printResult(logger: Signale): void {
-    logger.info(`"${this.login}" was removed`);
+    logger.complete(`"%s" was removed`, this.login);
   }
 
   hasError(): boolean {
