@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   collectCoverage: false,
   collectCoverageFrom: ['src/**/*.ts', '!src/octokitTypes.ts', '!lib/**', '!node_modules/**'],
