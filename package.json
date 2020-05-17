@@ -29,8 +29,6 @@
   "homepage": "https://github.com/johnmartel/organization-membership-action#readme",
   "devDependencies": {
     "@types/jest": "25.2.1",
-    "@types/js-yaml": "3.12.3",
-    "@types/lodash": "4.14.150",
     "@typescript-eslint/eslint-plugin": "2.32.0",
     "@typescript-eslint/parser": "2.32.0",
     "eslint": "6.8.0",
@@ -52,6 +50,8 @@
     "@octokit/rest": "17.9.0",
     "@octokit/types": "2.16.0",
     "@octokit/webhooks": "7.5.0",
+    "@types/js-yaml": "3.12.3",
+    "@types/lodash": "4.14.150",
     "actions-toolkit": "4.0.0",
     "js-yaml": "3.13.1",
     "lodash": "4.17.15",

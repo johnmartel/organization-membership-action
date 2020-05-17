@@ -13,7 +13,7 @@ COPY package-lock.json .
 COPY tsconfig.json .
 COPY src ./src
 
-RUN npm install
-RUN npm run build
+RUN npm install --production
+RUN npx -p typescript@$(node -p "require('./package.json').devDependencies.typescript") tsc
 
 ENTRYPOINT ["node", "/lib/index.js"]
