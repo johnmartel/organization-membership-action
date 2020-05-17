@@ -79,17 +79,8 @@ export default class GithubOrganization {
 
   private async listMembers(): Promise<void> {
     if (this.currentMembers === undefined) {
-      const adminsResponse: ListMembersResponseType = await this.github.orgs.listMembers({
-        org: this.name,
-        role: MemberRole.ADMIN,
-      });
-      const admins = adminsResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.ADMIN));
-
-      const membersResponse: ListMembersResponseType = await this.github.orgs.listMembers({
-        org: this.name,
-        role: MemberRole.MEMBER,
-      });
-      const members = membersResponse.data.map((member) => new OrganizationMember(member.login, MemberRole.MEMBER));
+      const admins = await this.listMembersWithRole(MemberRole.ADMIN);
+      const members = await this.listMembersWithRole(MemberRole.MEMBER);
 
       const invitationsResponse: ListPendingInvitationsResponseType = await this.github.orgs.listPendingInvitations({
         org: this.name,
@@ -100,5 +91,14 @@ export default class GithubOrganization {
 
       this.currentMembers = concat(admins, members, pendingInvitations);
     }
+  }
+
+  private async listMembersWithRole(role: MemberRole): Promise<OrganizationMember[]> {
+    const response: ListMembersResponseType = await this.github.orgs.listMembers({
+      org: this.name,
+      role,
+    });
+
+    return response.data.map((member) => new OrganizationMember(member.login, role));
   }
 }
