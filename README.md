@@ -1,6 +1,7 @@
 # organization-membership-action
 
 [![](https://github.com/johnmartel/organization-membership-action/workflows/Build%20and%20test/badge.svg)](https://github.com/johnmartel/organization-membership-action/actions?query=workflow%3A%22Build+and+test%22)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cc7aec17d5a056de6bae/maintainability)](https://codeclimate.com/github/johnmartel/organization-membership-action/maintainability)
 [![codecov](https://codecov.io/gh/johnmartel/organization-membership-action/branch/master/graph/badge.svg)](https://codecov.io/gh/johnmartel/organization-membership-action)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![](https://api.dependabot.com/badges/status?host=github&repo=johnmartel/organization-membership-action)](https://dependabot.com)
