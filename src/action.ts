@@ -10,6 +10,11 @@ async function synchronizeOrganizationMembership(
   organization: GithubOrganization,
   membersFile: MembersFile,
 ): Promise<void> {
+  if (membersFile.isEmpty()) {
+    tools.exit.failure('Empty members file: this action will not let you remove ALL members from this organization');
+    return;
+  }
+
   tools.log('Invite new members or update existing members');
   const addOrUpdateMembershipResults = await organization.inviteNewMembers(membersFile.allMembers);
   addOrUpdateMembershipResults.printResults(tools.log);

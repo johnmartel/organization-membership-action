@@ -76,6 +76,9 @@ members:
 
 The roles are defined in the [API documentation](https://developer.github.com/v3/orgs/members/#parameters-1).
 
+In order to prevent accidental deletion of all organization members, this action will ignore an empty members file and
+exit with failure.
+
 ## Building
 
 ```shell script
