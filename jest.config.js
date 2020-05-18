@@ -15,4 +15,5 @@ module.exports = {
   reporters: ['default', 'jest-junit'],
   setupFilesAfterEnv: ['jest-extended'],
   testEnvironment: 'node',
+  testPathIgnorePatterns: ['/fixtures/'],
 };

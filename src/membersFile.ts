@@ -7,7 +7,7 @@ export default class MembersFile {
   static readonly FILENAME: string = '.github/organization/members.yml';
 
   private file: {
-    members: MemberFileEntry[];
+    members: MemberFileEntry[] | undefined;
   };
 
   constructor(contents: string) {
@@ -15,10 +15,14 @@ export default class MembersFile {
   }
 
   get allMembers(): OrganizationMember[] {
-    if (!this.file.members) {
+    if (!this.file?.members) {
       return [];
     }
 
     return this.file.members.map((member) => new OrganizationMember(member.login, member.role));
+  }
+
+  isEmpty(): boolean {
+    return this.allMembers.length === 0;
   }
 }

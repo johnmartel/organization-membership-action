@@ -14,18 +14,11 @@ import {
   OperationResult,
 } from '../src/githubOrgOperationResults/githubOrganizationOperationResults';
 import { RemoveMembershipFailure, RemoveMembershipSuccess } from '../src/githubOrgOperationResults/removeMembershipResult';
+import { VALID_FILE, VALID_FILE_WITH_EMPTY_MEMBERS } from './fixtures/membersFiles';
 
 jest.mock('signale');
 jest.mock('../src/githubOrganization');
 jest.mock('../src/pushPayload');
-
-const VALID_FILE = `
-members:
-  - login: johnmartel
-    role: admin
-  - login: sebasrobert
-    role: member
-`;
 
 function givenAddOrUpdateOperationsWithResults(success: boolean): void {
   let singleResult: OperationResult;
@@ -93,6 +86,20 @@ describe('action test suite', () => {
     beforeEach(() => {
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
       tools.getFile = jest.fn().mockReturnValue(VALID_FILE);
+    });
+
+    describe('given a file with no members', () => {
+      beforeEach(() => {
+        tools.getFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
+      });
+
+      it('should exit with failure', async () => {
+        await action(tools);
+
+        expect(GithubOrganization.prototype.inviteNewMembers).not.toHaveBeenCalled();
+        expect(GithubOrganization.prototype.removeMembers).not.toHaveBeenCalled();
+        expect(tools.exit.failure).toHaveBeenCalledWith(expect.stringContaining('Empty members file'));
+      });
     });
 
     describe('given all operations are successful', () => {
