@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import { Toolkit } from 'actions-toolkit';
-import * as Webhooks from '@octokit/webhooks';
+import { Webhooks } from '@octokit/webhooks';
 import PushPayload from './pushPayload';
 import GithubOrganization from './githubOrganization';
 import MembersFile from './membersFile';
