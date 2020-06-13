@@ -48,7 +48,7 @@
   "dependencies": {
     "@actions/core": "1.2.4",
     "@octokit/rest": "17.9.2",
-    "@octokit/types": "4.1.4",
+    "@octokit/types": "5.0.0",
     "@octokit/webhooks": "7.6.4",
     "@types/js-yaml": "3.12.4",
     "@types/lodash": "4.14.155",
