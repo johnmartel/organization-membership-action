@@ -50,7 +50,7 @@
     "@octokit/rest": "17.9.2",
     "@octokit/types": "4.1.4",
     "@octokit/webhooks": "7.6.4",
-    "@types/js-yaml": "3.12.4",
+    "@types/js-yaml": "3.12.5",
     "@types/lodash": "4.14.155",
     "actions-toolkit": "4.0.0",
     "js-yaml": "3.14.0",
