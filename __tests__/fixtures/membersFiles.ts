@@ -1,11 +1,7 @@
 export const EMPTY_FILE = '';
 
 export const INVALID_FILE = `
-public_members:
-  - login: johnmartel
-    role: admin
-  - login: sebasrobert
-    role: member
+&
 `;
 
 export const VALID_FILE = `

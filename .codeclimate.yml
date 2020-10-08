@@ -41,6 +41,12 @@ checks:
     config:
       threshold: # language-specific defaults. an override will affect all languages.
 plugins:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        typescript:
+          mass_threshold: 65
   fixme:
     enabled: true
   markdownlint:

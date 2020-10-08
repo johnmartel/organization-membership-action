@@ -1,17 +1,24 @@
 import yaml from 'js-yaml';
+import { Signale } from 'signale';
 import { MemberRole, OrganizationMember } from './organizationMember';
 
 type MemberFileEntry = { login: string; role: MemberRole };
+type MembersFileType = {
+  members: MemberFileEntry[] | undefined;
+};
 
 export default class MembersFile {
   static readonly FILENAME: string = '.github/organization/members.yml';
 
-  private file: {
-    members: MemberFileEntry[] | undefined;
-  };
+  private file: MembersFileType;
 
-  constructor(contents: string) {
-    this.file = yaml.safeLoad(contents);
+  constructor(contents: string, log: Signale) {
+    try {
+      this.file = yaml.safeLoad(contents) as MembersFileType;
+    } catch (e) {
+      log.warn('Could not parse %s: %s', MembersFile.FILENAME, e.message);
+      this.file = { members: [] };
+    }
   }
 
   get allMembers(): OrganizationMember[] {
