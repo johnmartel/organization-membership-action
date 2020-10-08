@@ -53,7 +53,7 @@ export default async function (tools: Toolkit): Promise<void> {
     } else {
       const organizationName = payloadWrapper.organizationLogin;
       tools.log('%s was modified, modifying %s membership...', MembersFile.FILENAME, organizationName);
-      const membersFile = new MembersFile(tools.getFile(MembersFile.FILENAME));
+      const membersFile = new MembersFile(tools.getFile(MembersFile.FILENAME), tools.log);
       const organization = new GithubOrganization(organizationName, tools.github);
 
       await synchronizeOrganizationMembership(tools, organization, membersFile);
