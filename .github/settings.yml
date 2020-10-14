@@ -20,7 +20,7 @@ branches:
         dismissal_restrictions: {}
       required_status_checks:
         strict: true
-        contexts: ['Check', 'codeclimate']
+        contexts: ['Check (10.x)', 'Check (12.x)', 'Check (13.x)', 'Check (14.x)', 'codeclimate']
       required_signatures: true
       enforce_admins: true
       restrictions: null
