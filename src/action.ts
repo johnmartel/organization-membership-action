@@ -4,6 +4,16 @@ import PushPayload from './pushPayload';
 import GithubOrganization from './githubOrganization';
 import MembersFile from './membersFile';
 
+async function readMembersFile(tools: Toolkit): Promise<MembersFile> {
+  const contents = await tools.readFile(MembersFile.FILENAME);
+  /* istanbul ignore else */
+  if (typeof contents === 'string') {
+    return new MembersFile(contents, tools.log);
+  } else {
+    return new MembersFile(contents.toString(), tools.log);
+  }
+}
+
 async function synchronizeOrganizationMembership(
   tools: Toolkit,
   organization: GithubOrganization,
@@ -52,14 +62,7 @@ export default async function (tools: Toolkit): Promise<void> {
     } else {
       const organizationName = payloadWrapper.organizationLogin;
       tools.log('%s was modified, modifying %s membership...', MembersFile.FILENAME, organizationName);
-      const contents = await tools.readFile(MembersFile.FILENAME);
-      let membersFile: MembersFile;
-      /* istanbul ignore else */
-      if (typeof contents === 'string') {
-        membersFile = new MembersFile(contents, tools.log);
-      } else {
-        membersFile = new MembersFile(contents.toString(), tools.log);
-      }
+      const membersFile = await readMembersFile(tools);
       const organization = new GithubOrganization(organizationName, tools.github);
 
       await synchronizeOrganizationMembership(tools, organization, membersFile);
