@@ -62,7 +62,9 @@ describe('action test suite', () => {
     tools = new Toolkit({
       logger: signale,
     });
+    // @ts-ignore
     tools.exit.success = jest.fn();
+    // @ts-ignore
     tools.exit.failure = jest.fn();
   });
 
@@ -85,12 +87,12 @@ describe('action test suite', () => {
   describe('given members file was modified', () => {
     beforeEach(() => {
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
-      tools.getFile = jest.fn().mockReturnValue(VALID_FILE);
+      tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
     });
 
     describe('given a file with no members', () => {
       beforeEach(() => {
-        tools.getFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
+        tools.readFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
       });
 
       it('should exit with failure', async () => {
@@ -147,7 +149,7 @@ describe('action test suite', () => {
 
     async function runActionAndThrow(error: object): Promise<void> {
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
-      tools.getFile = jest.fn().mockImplementation(() => {
+      tools.readFile = jest.fn().mockImplementation(() => {
         throw error;
       });
 

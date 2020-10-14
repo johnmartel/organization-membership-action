@@ -1,4 +1,3 @@
-import * as core from '@actions/core';
 import { Toolkit } from 'actions-toolkit';
 import { Webhooks } from '@octokit/webhooks';
 import PushPayload from './pushPayload';
@@ -53,7 +52,14 @@ export default async function (tools: Toolkit): Promise<void> {
     } else {
       const organizationName = payloadWrapper.organizationLogin;
       tools.log('%s was modified, modifying %s membership...', MembersFile.FILENAME, organizationName);
-      const membersFile = new MembersFile(tools.getFile(MembersFile.FILENAME), tools.log);
+      const contents = await tools.readFile(MembersFile.FILENAME);
+      let membersFile: MembersFile;
+      /* istanbul ignore else */
+      if (typeof contents === 'string') {
+        membersFile = new MembersFile(contents, tools.log);
+      } else {
+        membersFile = new MembersFile(contents.toString(), tools.log);
+      }
       const organization = new GithubOrganization(organizationName, tools.github);
 
       await synchronizeOrganizationMembership(tools, organization, membersFile);
@@ -61,7 +67,6 @@ export default async function (tools: Toolkit): Promise<void> {
   } catch (error) {
     logError(tools, error);
 
-    core.setFailed(`An error occurred while modifying organization membership\n\n${error.message}`);
-    tools.exit.failure();
+    tools.exit.failure(`An error occurred while modifying organization membership\n\n${error.message}`);
   }
 }
