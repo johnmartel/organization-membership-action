@@ -46,13 +46,12 @@
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "@actions/core": "1.2.6",
-    "@octokit/rest": "17.9.2",
-    "@octokit/types": "4.1.4",
+    "@octokit/rest": "17.11.2",
+    "@octokit/types": "5.5.0",
     "@octokit/webhooks": "7.6.4",
     "@types/js-yaml": "3.12.5",
     "@types/lodash": "4.14.161",
-    "actions-toolkit": "4.0.0",
+    "actions-toolkit": "6.0.1",
     "js-yaml": "3.14.0",
     "lodash": "4.17.20",
     "signale": "1.4.0"

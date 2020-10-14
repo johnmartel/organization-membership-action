@@ -1,6 +1,6 @@
-import { Octokit } from '@octokit/rest';
 import some from 'lodash/some';
 import { Webhooks } from '@octokit/webhooks';
+import { Octokit } from '@octokit/rest';
 import { CompareCommitsResponseType } from './octokitTypes';
 import NoRepositoryError from './errors/noRepositoryError';
 

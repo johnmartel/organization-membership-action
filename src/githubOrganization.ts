@@ -30,7 +30,7 @@ export default class GithubOrganization {
     const results = new GithubOrganizationOperationResults();
     for (const member of newOrModifiedMembers) {
       try {
-        const addOrUpdateMembershipResult = await this.github.orgs.addOrUpdateMembership({
+        const addOrUpdateMembershipResult = await this.github.orgs.setMembershipForUser({
           org: this.name,
           username: member.login,
           role: member.role,
@@ -63,7 +63,7 @@ export default class GithubOrganization {
     const results = new GithubOrganizationOperationResults();
     for (const member of removedMembers) {
       try {
-        await this.github.orgs.removeMembership({
+        await this.github.orgs.removeMembershipForUser({
           org: this.name,
           username: member.login,
         });
