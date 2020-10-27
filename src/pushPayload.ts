@@ -1,13 +1,13 @@
 import some from 'lodash/some';
-import { Webhooks } from '@octokit/webhooks';
+import { EventPayloads } from '@octokit/webhooks';
 import { Octokit } from '@octokit/rest';
 import { CompareCommitsResponseType } from './octokitTypes';
 import NoRepositoryError from './errors/noRepositoryError';
 
 export default class PushPayload {
-  private payload: Webhooks.WebhookPayloadPush;
+  private payload: EventPayloads.WebhookPayloadPush;
 
-  constructor(payload: Webhooks.WebhookPayloadPush) {
+  constructor(payload: EventPayloads.WebhookPayloadPush) {
     this.payload = payload;
   }
 

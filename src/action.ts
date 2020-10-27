@@ -1,5 +1,5 @@
 import { Toolkit } from 'actions-toolkit';
-import { Webhooks } from '@octokit/webhooks';
+import { EventPayloads } from '@octokit/webhooks';
 import PushPayload from './pushPayload';
 import GithubOrganization from './githubOrganization';
 import MembersFile from './membersFile';
@@ -50,7 +50,7 @@ export default async function (tools: Toolkit): Promise<void> {
   try {
     tools.log('Verify if organization membership file was modified');
 
-    const payloadWrapper: PushPayload = new PushPayload(tools.context.payload as Webhooks.WebhookPayloadPush);
+    const payloadWrapper: PushPayload = new PushPayload(tools.context.payload as EventPayloads.WebhookPayloadPush);
     const membersFileModified: boolean = await payloadWrapper.fileWasModified(
       MembersFile.FILENAME,
       tools.context.repo,
