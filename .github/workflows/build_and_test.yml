@@ -33,4 +33,7 @@ jobs:
         with:
           flags: unittests
       - run: npm run build
+      - uses: satackey/action-docker-layer-caching@v0.0.8
+        with:
+          continue-on-error: true
       - run: docker build .
