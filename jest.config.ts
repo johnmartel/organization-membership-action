@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
   collectCoverage: false,
   collectCoverageFrom: ['src/**/*.ts', '!src/octokitTypes.ts', '!lib/**', '!node_modules/**'],
   coverageDirectory: 'coverage',
@@ -17,3 +19,4 @@ module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['/fixtures/'],
 };
+export default config;

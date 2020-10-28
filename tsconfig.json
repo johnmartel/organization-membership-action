@@ -24,5 +24,8 @@
     "global.d.ts",
     "src/**/*"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "tsNode": {
+    "compiler": "typescript"
+  }
 }
