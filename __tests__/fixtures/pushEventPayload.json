@@ -18,38 +18,7 @@
   "created": false,
   "deleted": false,
   "forced": true,
-  "head_commit": {
-    "author": {
-      "email": "jonathan.martel@coglinc.ca",
-      "name": "John Martel",
-      "username": "johnmartel"
-    },
-    "committer": {
-      "email": "jonathan.martel@coglinc.ca",
-      "name": "John Martel",
-      "username": "johnmartel"
-    },
-    "distinct": true,
-    "id": "b2709cb0d98a7a08662d90853402c32352892410",
-    "message": "Try first basic version of action\n\nIt should simply log the context payload.",
-    "timestamp": "2020-04-26T16:46:09-04:00",
-    "tree_id": "48665a7e9f3d1c0686347056e90662ef39c2a3dc",
-    "url": "https://github.com/coglinc/.github/commit/b2709cb0d98a7a08662d90853402c32352892410"
-  },
-  "organization": {
-    "avatar_url": "https://avatars1.githubusercontent.com/u/63756166?v=4",
-    "description": null,
-    "events_url": "https://api.github.com/orgs/coglinc/events",
-    "hooks_url": "https://api.github.com/orgs/coglinc/hooks",
-    "id": 63756166,
-    "issues_url": "https://api.github.com/orgs/coglinc/issues",
-    "login": "coglinc",
-    "members_url": "https://api.github.com/orgs/coglinc/members{/member}",
-    "node_id": "MDEyOk9yZ2FuaXphdGlvbjYzNzU2MTY2",
-    "public_members_url": "https://api.github.com/orgs/coglinc/public_members{/member}",
-    "repos_url": "https://api.github.com/orgs/coglinc/repos",
-    "url": "https://api.github.com/orgs/coglinc"
-  },
+  "head_commit": null,
   "pusher": { "email": "johnmartel@users.noreply.github.com", "name": "johnmartel" },
   "ref": "refs/heads/master",
   "repository": {
@@ -110,7 +79,7 @@
     "organization": "coglinc",
     "owner": {
       "avatar_url": "https://avatars1.githubusercontent.com/u/63756166?v=4",
-      "email": null,
+      "email": "johnmartel@users.noreply.github.com",
       "events_url": "https://api.github.com/users/coglinc/events{/privacy}",
       "followers_url": "https://api.github.com/users/coglinc/followers",
       "following_url": "https://api.github.com/users/coglinc/following{/other_user}",
