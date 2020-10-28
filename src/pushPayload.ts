@@ -2,7 +2,6 @@ import some from 'lodash/some';
 import { EventPayloads } from '@octokit/webhooks';
 import { Octokit } from '@octokit/rest';
 import { CompareCommitsResponseType } from './octokitTypes';
-import NoRepositoryError from './errors/noRepositoryError';
 
 export default class PushPayload {
   private payload: EventPayloads.WebhookPayloadPush;
@@ -12,11 +11,7 @@ export default class PushPayload {
   }
 
   get organizationLogin(): string {
-    if (this.payload.repository) {
-      return this.payload.repository.owner.login;
-    }
-
-    throw new NoRepositoryError();
+    return this.payload.repository.owner.login;
   }
 
   async fileWasModified(
