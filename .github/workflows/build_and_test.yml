@@ -19,6 +19,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm ci
       - run: npm run lint
       - run: npm run test:ci
@@ -27,4 +33,6 @@ jobs:
         with:
           flags: unittests
       - run: npm run build
+      - uses: satackey/action-docker-layer-caching@v0.0.8
+        continue-on-error: true
       - run: docker build .
