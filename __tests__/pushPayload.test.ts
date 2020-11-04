@@ -8,14 +8,10 @@ import commitComparisonWithMembersFile from './fixtures/commitComparisonWithMemb
 import commitComparisonWithoutMembersFile from './fixtures/commitComparisonWithoutMembersFile.json';
 
 describe('PushPayload test suite', () => {
-  let payload: PushPayload;
-
   describe('when reading organizationLogin', () => {
-    beforeEach(() => {
-      payload = new PushPayload(pushEventPayload);
-    });
-
     it('should return the login of the repository owner', () => {
+      const payload: PushPayload = new PushPayload(pushEventPayload);
+
       expect(payload.organizationLogin).toEqual('coglinc');
     });
   });
@@ -24,16 +20,13 @@ describe('PushPayload test suite', () => {
     const repo = { owner: 'coglinc', repo: '.github' };
     const github = new Octokit();
 
-    beforeEach(() => {
-      payload = new PushPayload(pushEventPayload);
-    });
-
     afterEach(() => {
       nock.cleanAll();
     });
 
     describe('given file was modified', () => {
       it('should return true', async () => {
+        const payload: PushPayload = new PushPayload(pushEventPayload);
         nock('https://api.github.com')
           .get(/\/repos\/.*\/.*\/compare/)
           .reply(200, () => {
@@ -48,6 +41,7 @@ describe('PushPayload test suite', () => {
 
     describe('given file was not modified', () => {
       it('should return false', async () => {
+        const payload: PushPayload = new PushPayload(pushEventPayload);
         nock('https://api.github.com')
           .get(/\/repos\/.*\/.*\/compare/)
           .reply(200, () => {
@@ -64,7 +58,7 @@ describe('PushPayload test suite', () => {
   describe('when verifying if push is on default branch', () => {
     describe('given push to default branch', () => {
       it('should return true', () => {
-        payload = new PushPayload(pushEventPayload);
+        const payload: PushPayload = new PushPayload(pushEventPayload);
 
         expect(payload.isDefaultBranch()).toBe(true);
       });
@@ -74,7 +68,7 @@ describe('PushPayload test suite', () => {
       it('should return false', () => {
         const pushToFeatureBranchEventPayload = cloneDeep(pushEventPayload);
         pushToFeatureBranchEventPayload.ref = 'refs/heads/feature/test';
-        payload = new PushPayload(pushToFeatureBranchEventPayload);
+        const payload: PushPayload = new PushPayload(pushToFeatureBranchEventPayload);
 
         expect(payload.isDefaultBranch()).toBe(false);
       });

@@ -20,6 +20,18 @@ jest.mock('signale');
 jest.mock('../src/githubOrganization');
 jest.mock('../src/pushPayload');
 
+function initializeToolkit(): Toolkit {
+  const tools = new Toolkit({
+    logger: signale,
+  });
+  // @ts-ignore
+  tools.exit.success = jest.fn();
+  // @ts-ignore
+  tools.exit.failure = jest.fn();
+
+  return tools;
+}
+
 function givenAddOrUpdateOperationsWithResults(success: boolean): void {
   let singleResult: OperationResult;
 
@@ -49,8 +61,6 @@ function givenRemoveOperationsWithResults(success: boolean): void {
 }
 
 describe('action test suite', () => {
-  let tools: Toolkit;
-
   beforeEach(() => {
     Object.assign(process.env, {
       GITHUB_REPOSITORY: 'johnmartel/organization-membership-action',
@@ -58,14 +68,6 @@ describe('action test suite', () => {
       GITHUB_EVENT_PATH: path.join(__dirname, 'fixtures', 'pushEventPayload.json'),
       GITHUB_WORKSPACE: path.join(__dirname, 'fixtures'),
     });
-
-    tools = new Toolkit({
-      logger: signale,
-    });
-    // @ts-ignore
-    tools.exit.success = jest.fn();
-    // @ts-ignore
-    tools.exit.failure = jest.fn();
   });
 
   afterEach(() => {
@@ -76,6 +78,7 @@ describe('action test suite', () => {
     it('should continue processing the event payload', async () => {
       PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
+      const tools = initializeToolkit();
 
       await action(tools);
 
@@ -86,6 +89,7 @@ describe('action test suite', () => {
   describe('given push on any non-default branch', () => {
     it('should halt event payload processing and exit successfully', async () => {
       PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(false);
+      const tools = initializeToolkit();
 
       await action(tools);
 
@@ -95,12 +99,11 @@ describe('action test suite', () => {
   });
 
   describe('given members file was not modified', () => {
-    beforeEach(() => {
-      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
-      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-    });
-
     it('should exit successfully', async () => {
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
+      const tools = initializeToolkit();
+
       await action(tools);
 
       expect(tools.exit.success).toHaveBeenCalled();
@@ -108,18 +111,16 @@ describe('action test suite', () => {
   });
 
   describe('given members file was modified', () => {
-    beforeEach(() => {
-      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
-      tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
-      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-    });
+    const SUCCESS = true;
+    const FAILURE = false;
 
     describe('given a file with no members', () => {
-      beforeEach(() => {
-        tools.readFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
-      });
-
       it('should exit with failure', async () => {
+        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+        const tools = initializeToolkit();
+        tools.readFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
+
         await action(tools);
 
         expect(GithubOrganization.prototype.inviteNewMembers).not.toHaveBeenCalled();
@@ -129,12 +130,14 @@ describe('action test suite', () => {
     });
 
     describe('given all operations are successful', () => {
-      beforeEach(() => {
-        givenAddOrUpdateOperationsWithResults(true);
-        givenRemoveOperationsWithResults(true);
-      });
-
       it('should exit successfully', async () => {
+        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+        const tools = initializeToolkit();
+        tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
+        givenAddOrUpdateOperationsWithResults(SUCCESS);
+        givenRemoveOperationsWithResults(SUCCESS);
+
         await action(tools);
 
         expect(GithubOrganization.prototype.inviteNewMembers).toHaveBeenCalledTimes(1);
@@ -144,12 +147,14 @@ describe('action test suite', () => {
     });
 
     describe('given add/update operations are not successful', () => {
-      beforeEach(() => {
-        givenAddOrUpdateOperationsWithResults(false);
-        givenRemoveOperationsWithResults(true);
-      });
-
       it('should exit with failure', async () => {
+        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+        const tools = initializeToolkit();
+        tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
+        givenAddOrUpdateOperationsWithResults(FAILURE);
+        givenRemoveOperationsWithResults(SUCCESS);
+
         await action(tools);
 
         expect(GithubOrganization.prototype.removeMembers).toHaveBeenCalledTimes(1);
@@ -158,12 +163,14 @@ describe('action test suite', () => {
     });
 
     describe('given removal operations are not successful', () => {
-      beforeEach(() => {
-        givenAddOrUpdateOperationsWithResults(true);
-        givenRemoveOperationsWithResults(false);
-      });
-
       it('should exit with failure', async () => {
+        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+        const tools = initializeToolkit();
+        tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
+        givenAddOrUpdateOperationsWithResults(SUCCESS);
+        givenRemoveOperationsWithResults(FAILURE);
+
         await action(tools);
 
         expect(GithubOrganization.prototype.inviteNewMembers).toHaveBeenCalledTimes(1);
@@ -171,8 +178,10 @@ describe('action test suite', () => {
       });
     });
 
-    async function runActionAndThrow(error: object): Promise<void> {
+    async function runActionAndThrow(tools: Toolkit, error: object): Promise<void> {
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+
       tools.readFile = jest.fn().mockImplementation(() => {
         throw error;
       });
@@ -183,15 +192,19 @@ describe('action test suite', () => {
     describe('given an unknown error occurs', () => {
       const expectedError = { message: 'test' };
 
-      beforeEach(async () => {
-        await runActionAndThrow(expectedError);
-      });
+      it('should log the error', async () => {
+        const tools = initializeToolkit();
 
-      it('should log the error', () => {
+        await runActionAndThrow(tools, expectedError);
+
         expect(tools.log.error).toHaveBeenCalledWith('test', expectedError);
       });
 
-      it('should exit with failure', () => {
+      it('should exit with failure', async () => {
+        const tools = initializeToolkit();
+
+        await runActionAndThrow(tools, expectedError);
+
         expect(tools.exit.failure).toHaveBeenCalled();
       });
     });
@@ -199,19 +212,27 @@ describe('action test suite', () => {
     describe('given an unknown error with details occurs', () => {
       const expectedError = { message: 'test', errors: ['more details'] };
 
-      beforeEach(async () => {
-        await runActionAndThrow(expectedError);
-      });
+      it('should log the error', async () => {
+        const tools = initializeToolkit();
 
-      it('should log the error', () => {
+        await runActionAndThrow(tools, expectedError);
+
         expect(tools.log.error).toHaveBeenCalledWith('test', expectedError);
       });
 
-      it('should log the error details', () => {
+      it('should log the error details', async () => {
+        const tools = initializeToolkit();
+
+        await runActionAndThrow(tools, expectedError);
+
         expect(tools.log.error).toHaveBeenCalledWith(['more details']);
       });
 
-      it('should exit with failure', () => {
+      it('should exit with failure', async () => {
+        const tools = initializeToolkit();
+
+        await runActionAndThrow(tools, expectedError);
+
         expect(tools.exit.failure).toHaveBeenCalled();
       });
     });
