@@ -51,6 +51,12 @@ export default async function (tools: Toolkit): Promise<void> {
     tools.log('Verify if organization membership file was modified');
 
     const payloadWrapper: PushPayload = new PushPayload(tools.context.payload as EventPayloads.WebhookPayloadPush);
+
+    if (!payloadWrapper.isDefaultBranch()) {
+      tools.exit.success('Not working on default branch, nothing to do');
+      return;
+    }
+
     const membersFileModified: boolean = await payloadWrapper.fileWasModified(
       MembersFile.FILENAME,
       tools.context.repo,

@@ -72,9 +72,32 @@ describe('action test suite', () => {
     jest.resetAllMocks();
   });
 
+  describe('given push on default branch', () => {
+    it('should continue processing the event payload', async () => {
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
+
+      await action(tools);
+
+      expect(PushPayload.prototype.fileWasModified).toHaveBeenCalled();
+    });
+  });
+
+  describe('given push on any non-default branch', () => {
+    it('should halt event payload processing and exit successfully', async () => {
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(false);
+
+      await action(tools);
+
+      expect(PushPayload.prototype.fileWasModified).not.toHaveBeenCalled();
+      expect(tools.exit.success).toHaveBeenCalledWith(expect.stringContaining('Not working on default branch'));
+    });
+  });
+
   describe('given members file was not modified', () => {
     beforeEach(() => {
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
     });
 
     it('should exit successfully', async () => {
@@ -88,6 +111,7 @@ describe('action test suite', () => {
     beforeEach(() => {
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
       tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
     });
 
     describe('given a file with no members', () => {

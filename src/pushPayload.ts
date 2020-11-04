@@ -31,4 +31,8 @@ export default class PushPayload {
 
     return some(response.data.files, ['filename', filename]);
   }
+
+  isDefaultBranch(): boolean {
+    return this.payload.ref === `refs/heads/${this.payload.repository.default_branch}`;
+  }
 }
