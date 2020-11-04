@@ -74,4 +74,24 @@ describe('PushPayload test suite', () => {
       });
     });
   });
+
+  describe('when verifying if repository is owned by an organization', () => {
+    describe('given an organization repository', () => {
+      it('should return true', () => {
+        const payload: PushPayload = new PushPayload(pushEventPayload);
+
+        expect(payload.isOrganizationOwned()).toBe(true);
+      });
+    });
+
+    describe('given a user repository', () => {
+      it('should return false', () => {
+        const pushToAUserRepositoryEventPayload = cloneDeep(pushEventPayload);
+        pushToAUserRepositoryEventPayload.repository.owner.type = 'User';
+        const payload: PushPayload = new PushPayload(pushToAUserRepositoryEventPayload);
+
+        expect(payload.isOrganizationOwned()).toBe(false);
+      });
+    });
+  });
 });

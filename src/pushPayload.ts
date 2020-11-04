@@ -14,6 +14,14 @@ export default class PushPayload {
     return this.payload.repository.owner.login;
   }
 
+  isDefaultBranch(): boolean {
+    return this.payload.ref === `refs/heads/${this.payload.repository.default_branch}`;
+  }
+
+  isOrganizationOwned(): boolean {
+    return this.payload.repository.owner.type.toLowerCase() === 'organization';
+  }
+
   async fileWasModified(
     filename: string,
     repo: {
@@ -30,9 +38,5 @@ export default class PushPayload {
     });
 
     return some(response.data.files, ['filename', filename]);
-  }
-
-  isDefaultBranch(): boolean {
-    return this.payload.ref === `refs/heads/${this.payload.repository.default_branch}`;
   }
 }

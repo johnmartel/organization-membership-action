@@ -74,8 +74,33 @@ describe('action test suite', () => {
     jest.resetAllMocks();
   });
 
+  describe('given an organization repository', () => {
+    it('should continue processing the event payload', async () => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(true);
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(false);
+      const tools = initializeToolkit();
+
+      await action(tools);
+
+      expect(PushPayload.prototype.isDefaultBranch).toHaveBeenCalled();
+    });
+  });
+
+  describe('given a user repository', () => {
+    it('should halt event payload processing and exit with failure', async () => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(false);
+      const tools = initializeToolkit();
+
+      await action(tools);
+
+      expect(PushPayload.prototype.isDefaultBranch).not.toHaveBeenCalled();
+      expect(tools.exit.failure).toHaveBeenCalledWith(expect.stringContaining('Not an organization repository'));
+    });
+  });
+
   describe('given push on default branch', () => {
     it('should continue processing the event payload', async () => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(true);
       PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
       const tools = initializeToolkit();
@@ -88,6 +113,7 @@ describe('action test suite', () => {
 
   describe('given push on any non-default branch', () => {
     it('should halt event payload processing and exit successfully', async () => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(true);
       PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(false);
       const tools = initializeToolkit();
 
@@ -100,6 +126,7 @@ describe('action test suite', () => {
 
   describe('given members file was not modified', () => {
     it('should exit successfully', async () => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(true);
       PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
       PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(false);
       const tools = initializeToolkit();
@@ -114,10 +141,14 @@ describe('action test suite', () => {
     const SUCCESS = true;
     const FAILURE = false;
 
+    beforeEach(() => {
+      PushPayload.prototype.isOrganizationOwned = jest.fn().mockReturnValue(true);
+      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
+      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
+    });
+
     describe('given a file with no members', () => {
       it('should exit with failure', async () => {
-        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
         const tools = initializeToolkit();
         tools.readFile = jest.fn().mockReturnValue(VALID_FILE_WITH_EMPTY_MEMBERS);
 
@@ -131,8 +162,6 @@ describe('action test suite', () => {
 
     describe('given all operations are successful', () => {
       it('should exit successfully', async () => {
-        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
         const tools = initializeToolkit();
         tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
         givenAddOrUpdateOperationsWithResults(SUCCESS);
@@ -148,8 +177,6 @@ describe('action test suite', () => {
 
     describe('given add/update operations are not successful', () => {
       it('should exit with failure', async () => {
-        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
         const tools = initializeToolkit();
         tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
         givenAddOrUpdateOperationsWithResults(FAILURE);
@@ -164,8 +191,6 @@ describe('action test suite', () => {
 
     describe('given removal operations are not successful', () => {
       it('should exit with failure', async () => {
-        PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-        PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
         const tools = initializeToolkit();
         tools.readFile = jest.fn().mockReturnValue(VALID_FILE);
         givenAddOrUpdateOperationsWithResults(SUCCESS);
@@ -179,9 +204,6 @@ describe('action test suite', () => {
     });
 
     async function runActionAndThrow(tools: Toolkit, error: object): Promise<void> {
-      PushPayload.prototype.isDefaultBranch = jest.fn().mockReturnValue(true);
-      PushPayload.prototype.fileWasModified = jest.fn().mockResolvedValue(true);
-
       tools.readFile = jest.fn().mockImplementation(() => {
         throw error;
       });
