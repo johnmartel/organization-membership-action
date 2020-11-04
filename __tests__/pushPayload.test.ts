@@ -10,7 +10,7 @@ import commitComparisonWithoutMembersFile from './fixtures/commitComparisonWitho
 describe('PushPayload test suite', () => {
   describe('when reading organizationLogin', () => {
     it('should return the login of the repository owner', () => {
-      const payload: PushPayload = new PushPayload(pushEventPayload);
+      const payload = new PushPayload(pushEventPayload);
 
       expect(payload.organizationLogin).toEqual('coglinc');
     });
@@ -26,7 +26,7 @@ describe('PushPayload test suite', () => {
 
     describe('given file was modified', () => {
       it('should return true', async () => {
-        const payload: PushPayload = new PushPayload(pushEventPayload);
+        const payload = new PushPayload(pushEventPayload);
         nock('https://api.github.com')
           .get(/\/repos\/.*\/.*\/compare/)
           .reply(200, () => {
@@ -41,7 +41,7 @@ describe('PushPayload test suite', () => {
 
     describe('given file was not modified', () => {
       it('should return false', async () => {
-        const payload: PushPayload = new PushPayload(pushEventPayload);
+        const payload = new PushPayload(pushEventPayload);
         nock('https://api.github.com')
           .get(/\/repos\/.*\/.*\/compare/)
           .reply(200, () => {
@@ -58,7 +58,7 @@ describe('PushPayload test suite', () => {
   describe('when verifying if push is on default branch', () => {
     describe('given push to default branch', () => {
       it('should return true', () => {
-        const payload: PushPayload = new PushPayload(pushEventPayload);
+        const payload = new PushPayload(pushEventPayload);
 
         expect(payload.isDefaultBranch()).toBe(true);
       });
@@ -68,7 +68,7 @@ describe('PushPayload test suite', () => {
       it('should return false', () => {
         const pushToFeatureBranchEventPayload = cloneDeep(pushEventPayload);
         pushToFeatureBranchEventPayload.ref = 'refs/heads/feature/test';
-        const payload: PushPayload = new PushPayload(pushToFeatureBranchEventPayload);
+        const payload = new PushPayload(pushToFeatureBranchEventPayload);
 
         expect(payload.isDefaultBranch()).toBe(false);
       });
@@ -78,7 +78,7 @@ describe('PushPayload test suite', () => {
   describe('when verifying if repository is owned by an organization', () => {
     describe('given an organization repository', () => {
       it('should return true', () => {
-        const payload: PushPayload = new PushPayload(pushEventPayload);
+        const payload = new PushPayload(pushEventPayload);
 
         expect(payload.isOrganizationOwned()).toBe(true);
       });
@@ -88,7 +88,7 @@ describe('PushPayload test suite', () => {
       it('should return false', () => {
         const pushToAUserRepositoryEventPayload = cloneDeep(pushEventPayload);
         pushToAUserRepositoryEventPayload.repository.owner.type = 'User';
-        const payload: PushPayload = new PushPayload(pushToAUserRepositoryEventPayload);
+        const payload = new PushPayload(pushToAUserRepositoryEventPayload);
 
         expect(payload.isOrganizationOwned()).toBe(false);
       });
