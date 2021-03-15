@@ -50,7 +50,7 @@
   "dependencies": {
     "@octokit/rest": "17.11.2",
     "@octokit/types": "5.5.0",
-    "@octokit/webhooks": "7.15.1",
+    "@octokit/webhooks": "8.5.4",
     "@types/js-yaml": "3.12.5",
     "@types/lodash": "4.14.164",
     "actions-toolkit": "6.0.1",
