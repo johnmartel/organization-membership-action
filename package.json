@@ -55,7 +55,7 @@
     "@types/lodash": "4.14.164",
     "actions-toolkit": "6.0.1",
     "js-yaml": "3.14.0",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "signale": "1.4.0"
   }
 }
