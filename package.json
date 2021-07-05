@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/johnmartel/organization-membership-action#readme",
   "devDependencies": {
-    "@jest/types": "26.6.1",
+    "@jest/types": "27.0.6",
     "@types/jest": "26.0.15",
     "@typescript-eslint/eslint-plugin": "2.34.0",
     "@typescript-eslint/parser": "2.34.0",
